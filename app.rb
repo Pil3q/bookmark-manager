@@ -3,8 +3,10 @@ require_relative './lib/bookmark.rb'
 
 class BookmarkManager < Sinatra::Base
 
+  enable :sessions
+  register Sinatra::Flash
+
   get '/' do
-    @bookmarks = Bookmark.all
     erb :display
   end
 
@@ -13,8 +15,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/submit_new' do
-    Bookmark.add(params)
-    redirect ('/')
+      flash[:error] = "#{params[:url]} is not valid URL" unless Bookmark.add(params)
+      redirect ('/')
   end
-
 end

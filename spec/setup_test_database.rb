@@ -1,11 +1,9 @@
-def reset_and_fill
+def reset_table
   begin
 
-      con = PG.connect :dbname => ENV['DATABASE'], :user => USER
+      con = PG.connect :dbname => ENV['DATABASE']
 
       con.exec "TRUNCATE bookmarks"
-      con.exec "INSERT INTO bookmarks(id, url) VALUES('4', 'http://google.com')"
-      con.exec "INSERT INTO bookmarks(id, url) VALUES('2', 'http://makersacademy.com')"
 
   rescue PG::Error => e
 

@@ -1,1 +1,9 @@
-<%= Bookmark.all %>
+<%= flash[:error] %>
+<ul>
+<% Bookmark.all.each do |bookmark| %>
+    <li><a href=<%= bookmark.url %>><%= bookmark.title %></a></li>
+<% end %>
+</ul>
+<form action='/add_bookmark'>
+  <input type='submit' value='Add new bookmark'>
+</form>

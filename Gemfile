@@ -8,6 +8,7 @@ gem "selenium-webdriver"
 gem "rake"
 gem "rspec-sinatra"
 gem "pg"
+gem "sinatra-flash"
 
 group :development, :test do
   gem "rspec"

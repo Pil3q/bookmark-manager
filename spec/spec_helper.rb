@@ -57,7 +57,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     allow(ENV).to receive(:[]).with("DATABASE").and_return('bookmark_manager_test')
-    reset_and_fill
+    reset_table
   end
 
 # The settings below are suggested to provide a good initial experience
