@@ -13,7 +13,7 @@ describe Bookmark do
 
   it 'is updating the database' do
     Bookmark.add(url: 'http://makersacademy.com', title: 'makers')
-    Bookmark.update(Bookmark.find(title: 'makers'), url: 'http://google.com')
+    Bookmark.update(Bookmark.find(title: 'makers'), {url: 'http://google.com', name: 'makers'})
     expect(Bookmark.find(title: 'makers').url).to eq 'http://google.com'
   end
 

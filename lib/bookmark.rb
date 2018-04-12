@@ -47,8 +47,8 @@ class Bookmark
 
   def self.update(old, update)
     con = PG.connect :dbname => ENV['DATABASE'], :user => USER
-    con.exec("UPDATE bookmarks SET url='#{update[:url]}' WHERE title='#{old.title}' OR url='#{old.url}'") unless update[:url] == ''
-    con.exec("UPDATE bookmarks SET title='#{update[:title]}' WHERE title='#{old.title}' OR url='#{old.url}'") unless update[:title] == ''
+    con.exec("UPDATE bookmarks SET url='#{update[:url]}' WHERE title='#{old.title}' OR url='#{old.url}'") unless update[:url] == nil
+    con.exec("UPDATE bookmarks SET title='#{update[:title]}' WHERE title='#{old.title}' OR url='#{old.url}'") unless update[:title] == nil
   end
 
   def self.delete(params)
