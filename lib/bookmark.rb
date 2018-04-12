@@ -45,6 +45,23 @@ class Bookmark
   @id == other.id
   end
 
+  def self.update(old, update)
+    con = PG.connect :dbname => ENV['DATABASE'], :user => USER
+    con.exec("UPDATE bookmarks SET url='#{update[:url]}' WHERE title='#{old.title}' OR url='#{old.url}'") unless update[:url] == ''
+    con.exec("UPDATE bookmarks SET title='#{update[:title]}' WHERE title='#{old.title}' OR url='#{old.url}'") unless update[:title] == ''
+  end
+
+  def self.delete(params)
+    con = PG.connect :dbname => ENV['DATABASE'], :user => USER
+    result = con.exec("DELETE FROM bookmarks WHERE title='#{params[:title]}' OR url='#{params[:url]}'")
+  end
+
+  def self.find(params)
+    con = PG.connect :dbname => ENV['DATABASE'], :user => USER
+    result = con.exec("SELECT * FROM bookmarks WHERE title='#{params[:title]}' OR url='#{params[:url]}'")
+    Bookmark.new(result.first['id'], result.first['url'], result.first['title'])
+  end
+
   private
 
   def self.valid?(url)
