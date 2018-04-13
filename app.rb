@@ -1,7 +1,8 @@
 require 'sinatra/base'
 require_relative './lib/bookmark.rb'
 require_relative './lib/comment.rb'
-
+require_relative './lib/tag.rb'
+require_relative './lib/tagbookmark.rb'
 class BookmarkManager < Sinatra::Base
 
   enable :sessions
@@ -62,5 +63,37 @@ class BookmarkManager < Sinatra::Base
   post '/submit_comment_add' do
     Comment.add(session[:comment], params)
     redirect ('/')
+  end
+  get '/tag_add' do
+    erb :add_tag
+  end
+  post '/submit_tag' do
+    Tag.add(params)
+    redirect ('/')
+  end
+  get '/tag_add_to' do
+    erb :add_tag_to
+  end
+  post '/submit_tag_to' do
+    session[:tag] = Bookmark.find(params)
+    redirect ('/add_tag_to_bookmark')
+  end
+  get '/add_tag_to_bookmark' do
+    erb :add_tag_to_bookmark
+  end
+  post '/submit_tag_to_bookmark' do
+    TagBookmark.add_to_bookmark(session[:tag], Tag.find(params))
+    redirect('/')
+  end
+  get '/sort_by_tag' do
+    erb :sort_by_tag
+  end
+  post '/submit_sort_by_tag' do
+    session[:sort] = Tag.bookmark_list(Tag.find(params))
+    redirect('/sorted_by_tag')
+  end
+  get '/sorted_by_tag' do
+    @bookmarks = session[:sort]
+    erb :sorted_index
   end
 end

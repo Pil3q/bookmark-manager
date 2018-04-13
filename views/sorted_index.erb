@@ -1,6 +1,6 @@
 <%= flash[:error] %>
 <ul>
-<% Bookmark.all.each do |bookmark| %>
+<% @bookmarks.each do |bookmark| %>
     <li>
       <a href=<%= bookmark.url %>><%= bookmark.title %></a>
     </li>
@@ -31,4 +31,7 @@
 </form>
 <form action='/sort_by_tag'>
   <input type='submit' value='Sort by tag'>
+</form>
+<form action='/'>
+  <input type='submit' value='Back to homepage'>
 </form>
