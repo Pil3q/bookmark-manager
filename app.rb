@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require_relative './lib/bookmark.rb'
+require_relative './lib/comment.rb'
 
 class BookmarkManager < Sinatra::Base
 
@@ -43,6 +44,23 @@ class BookmarkManager < Sinatra::Base
 
   post '/submit_update_with_changes' do
     Bookmark.update(session[:link], params)
+    redirect ('/')
+  end
+
+  get '/comment' do
+    erb :comment
+  end
+
+  post '/submit_comment' do
+    session[:comment] = Bookmark.find(params)
+    redirect ('/comment_add')
+  end
+
+  get '/comment_add' do
+    erb :comment_add
+  end
+  post '/submit_comment_add' do
+    Comment.add(session[:comment], params)
     redirect ('/')
   end
 end

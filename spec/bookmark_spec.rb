@@ -11,17 +11,9 @@ describe Bookmark do
     expect(Bookmark.find(title:'makers')).to eq bookmark
   end
 
-  it 'is updating the database' do
-    Bookmark.add(url: 'http://makersacademy.com', title: 'makers')
-    Bookmark.update(Bookmark.find(title: 'makers'), {url: 'http://google.com', name: 'makers'})
-    expect(Bookmark.find(title: 'makers').url).to eq 'http://google.com'
-  end
-
   it 'deletes bookmarks' do
     bookmark = Bookmark.add(url: 'http://makersacademy.com', title: 'makers')
     Bookmark.delete(url: 'http://makersacademy.com', title: 'makers')
     expect(Bookmark.all).not_to include bookmark
   end
-
-
 end
