@@ -14,7 +14,7 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 ENV['RACK_ENV'] = 'test'
-
+require 'web_helper'
 require './app.rb'
 require 'capybara'
 require 'capybara/rspec'

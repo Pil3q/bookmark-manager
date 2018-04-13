@@ -3,7 +3,7 @@ def reset_table
 
       con = PG.connect :dbname => ENV['DATABASE']
 
-      con.exec "TRUNCATE bookmarks"
+      con.exec "TRUNCATE bookmarks CASCADE"
 
   rescue PG::Error => e
 

@@ -1,7 +1,14 @@
 <%= flash[:error] %>
 <ul>
 <% Bookmark.all.each do |bookmark| %>
-    <li><a href=<%= bookmark.url %>><%= bookmark.title %></a></li>
+    <li>
+      <a href=<%= bookmark.url %>><%= bookmark.title %></a>
+    </li>
+    <ul>
+      <% bookmark.comments.each do |comment| %>
+        <li><%= comment.text %></li>
+      <% end %>
+    </ul>
 <% end %>
 </ul>
 <form action='/add_bookmark'>

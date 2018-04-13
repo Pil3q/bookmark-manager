@@ -1,6 +1,8 @@
 require 'pg'
 require 'sinatra/flash'
 require_relative '../local.rb'
+require_relative './comment.rb'
+
 
 ENV['DATABASE'] = 'bookmark_manager'
 
@@ -60,6 +62,12 @@ class Bookmark
     con = PG.connect :dbname => ENV['DATABASE'], :user => USER
     result = con.exec("SELECT * FROM bookmarks WHERE title='#{params[:title]}' OR url='#{params[:url]}'")
     Bookmark.new(result.first['id'], result.first['url'], result.first['title'])
+  end
+
+  def comments
+    con = PG.connect :dbname => ENV['DATABASE'], :user => USER
+    rs = con.exec("SELECT * FROM comments WHERE bookmark_id='#{@id}'")
+    rs.map { |comment| Comment.new(comment['bookmark_id'], comment['comment']) }
   end
 
   private
