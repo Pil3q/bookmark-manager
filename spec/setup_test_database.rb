@@ -4,6 +4,7 @@ def reset_table
       con = PG.connect :dbname => ENV['DATABASE']
 
       con.exec "TRUNCATE bookmarks CASCADE"
+      con.exec "TRUNCATE tags CASCADE"
 
   rescue PG::Error => e
 
