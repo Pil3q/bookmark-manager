@@ -5,9 +5,16 @@
     <li>
       <a href=<%= bookmark.url %>><%= bookmark.title %></a>
     </li>
+    <br>Comments:</br>
     <ul>
       <% bookmark.comments.each do |comment| %>
         <li><%= comment.text %></li>
+      <% end %>
+    </ul>
+    <br>Tags:</br>
+    <ul>
+      <% bookmark.tags.each do |tag| %>
+        <li><%= tag.text %></li>
       <% end %>
     </ul>
 <% end %>

@@ -2,6 +2,8 @@ require 'pg'
 require 'sinatra/flash'
 require_relative '../local.rb'
 require_relative './comment.rb'
+require_relative './tag.rb'
+require_relative './tagbookmark.rb'
 
 
 ENV['DATABASE'] = 'bookmark_manager'
@@ -68,6 +70,12 @@ class Bookmark
     con = PG.connect :dbname => ENV['DATABASE'], :user => USER
     rs = con.exec("SELECT * FROM comments WHERE bookmark_id='#{@id}'")
     rs.map { |comment| Comment.new(comment['bookmark_id'], comment['comment']) }
+  end
+
+  def tags
+    con = PG.connect :dbname => ENV['DATABASE'], :user => USER
+    result = con.exec("SELECT tags.id, tag FROM bookmarks_tags INNER JOIN tags ON tags.id = bookmarks_tags.tag_id WHERE bookmarks_tags.bookmark_id = #{@id}")
+    result.map { |tag| Tag.new(tag['id'], tag['tag']) }
   end
 
   private

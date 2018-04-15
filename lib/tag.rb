@@ -1,5 +1,4 @@
 require 'pg'
-require_relative './bookmark.rb'
 class Tag
   attr_reader :id, :text
   def initialize(id, text)
